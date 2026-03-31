@@ -29,7 +29,7 @@ def get_var(portfolio_id: str = "PF001", confidence: float = 0.95, method: str =
 ##################################################
 
 @app.get("/api/risk/var/history")
-def get_var_history(portfolio_id: str):
+def get_var_history(portfolio_id: str = "PF001"):
 
     data = []
 
@@ -52,7 +52,7 @@ def get_var_history(portfolio_id: str):
 ##################################################
 
 @app.get("/api/stress/results")
-def stress_results(portfolio_id: str):
+def stress_results(portfolio_id: str = "PF001"):
 
     return [
         {"scenario_name": "Global Market Crash", "pnl_impact": -2500000},
