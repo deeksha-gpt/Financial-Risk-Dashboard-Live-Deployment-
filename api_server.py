@@ -10,7 +10,7 @@ app = FastAPI(title="Quant Risk API")
 ##################################################
 
 @app.get("/api/risk/var")
-def get_var(portfolio_id: str, confidence: float = 0.95, method: str = "historical"):
+def get_var(portfolio_id: str = "PF001", confidence: float = 0.95, method: str = "historical"):
 
     var_value = random.randint(900000, 1400000)
     es_value = int(var_value * 1.3)
