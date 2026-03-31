@@ -1,4 +1,4 @@
-# 📊 Quantitative Risk Dashboard
+# 📊 Risk Analytics Dashboard
 
 A full-stack financial risk analytics platform that provides real-time portfolio risk monitoring, stress testing, and regulatory reporting using modern data science and visualization tools.
 
