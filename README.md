@@ -6,8 +6,9 @@ A full-stack financial risk analytics platform that provides real-time portfolio
 
 ## 🌐 Live Demo
 
-🔗 **Dashboard:** https://quant-risk-dashboard.streamlit.app](https://live-financial-risk-dashboard.streamlit.app
-🔗 **API Docs:** https://https://financial-risk-dashboard-live-deployment-6j9f.onrender.com/docs
+🔗 **Dashboard:** https://live-financial-risk-dashboard.streamlit.app
+🔗 **API Docs:** https://financial-risk-dashboard-live-deployment-6j9f.onrender.com/docs
+
 ---
 
 ## 🚀 Features
