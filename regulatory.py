@@ -11,11 +11,3 @@ class BaselReporting:
             "stressed_var": 700000,
             "capital_charge": 800000
         }
-    def calculate_stressed_var(self, portfolio_id):
-        return 650000
-
-    def perform_backtest(self, portfolio_id, days=250):
-        return {"violations": 3, "zone": "Green"}
-
-    def calculate_multiplier(self):
-        return 3
