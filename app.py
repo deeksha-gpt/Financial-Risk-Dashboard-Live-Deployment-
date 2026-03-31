@@ -62,7 +62,7 @@ class RiskDashboard:
 
     def __init__(self):
 
-        self.api_base_url = "http://localhost:8000/api"
+        self.api_base_url = "https://financial-risk-dashboard-live-deployment-6j9f.onrender.com/api"
 
         self.init_session_state()
 
