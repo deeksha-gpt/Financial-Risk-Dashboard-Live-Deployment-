@@ -1,10 +1,6 @@
 streamlit
+pandas
+plotly
 fastapi
 uvicorn
-pandas
-numpy
-plotly
 scikit-learn
-torch
-requests
-yfinance
