@@ -197,11 +197,15 @@ def fetch_data(self, endpoint, params=None):
     ##########################################
     # KEY METRICS
     ##########################################
+
+    ##########################################
+    # VAR CHART
+    ##########################################
+
     def render_key_metrics(self, config):
 
-    st.subheader("🎯 Key Risk Metrics")
+        st.subheader("🎯 Key Risk Metrics")
 
-    with st.spinner("Fetching live risk data..."):
         var_data = self.fetch_data(
             "risk/var",
             {
@@ -211,55 +215,25 @@ def fetch_data(self, endpoint, params=None):
             }
         )
 
-    if not var_data:
-        st.warning("No data")
-        return
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.metric(
-            "1 Day VaR",
-            f"${var_data.get('var_1d',0):,.0f}"
-        )
-
-    with col2:
-        st.metric(
-            "Expected Shortfall",
-            f"${var_data.get('expected_shortfall',0):,.0f}"
-        )
-    ##########################################
-    # VAR CHART
-    ##########################################
-
-    def render_var_chart(self, config):
-
-        st.subheader("📈 VaR Trend")
-
-        data = self.fetch_data(
-            "risk/var/history",
-            {"portfolio_id":config["portfolio_id"]}
-        )
-
-        if not data:
-            st.info("No VaR history")
+        if not var_data:
+            st.warning("No data")
             return
 
-        df = pd.DataFrame(data)
+        col1, col2 = st.columns(2)
 
-        df["date"] = pd.to_datetime(df["date"])
+        with col1:
 
-        fig = go.Figure()
-
-        fig.add_trace(
-            go.Scatter(
-                x=df["date"],
-                y=df["var"],
-                mode="lines+markers"
+            st.metric(
+                "1 Day VaR",
+                f"${var_data.get('var_1d',0):,.0f}"
             )
-        )
 
-        st.plotly_chart(fig, use_container_width=True)
+        with col2:
+
+            st.metric(
+                "Expected Shortfall",
+                f"${var_data.get('expected_shortfall',0):,.0f}"
+            )
 
     ##########################################
     # STRESS TEST
