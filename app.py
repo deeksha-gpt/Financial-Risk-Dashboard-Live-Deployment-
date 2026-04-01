@@ -1,4 +1,4 @@
-import streamlit as st
+import streamlit as st 
 import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
@@ -83,20 +83,36 @@ class RiskDashboard:
 
     def fetch_data(self, endpoint, params=None):
 
-        url = f"{self.api_base_url}/{endpoint}"
+    url = f"{self.api_base_url}/{endpoint}"
 
-        for i in range(3):
-            try:
-                response = requests.get(url, params=params, timeout=30)
-                response.raise_for_status()
-                return response.json()
+    for i in range(3):
+        try:
+            response = requests.get(url, params=params, timeout=30)
+            response.raise_for_status()
+            return response.json()
 
-            except Exception as e:
-                if i < 2:
-                    time.sleep(5)
-                else:
-                    st.error(f"API error: {e}")
-                    return None
+        except Exception as e:
+            if i < 2:
+                time.sleep(5)
+            else:
+                st.error(f"API error: {e}")
+                return None
+
+        try:
+
+            url = f"{self.api_base_url}/{endpoint}"
+
+            response = requests.get(url, params=params, timeout=30)
+
+            response.raise_for_status()
+
+            return response.json()
+
+        except Exception as e:
+
+            st.error(f"API error: {e}")
+
+            return None
 
     ##########################################
     # HEADER
@@ -186,14 +202,22 @@ class RiskDashboard:
 
         st.subheader("🎯 Key Risk Metrics")
 
-        var_data = self.fetch_data(
-            "risk/var",
-            {
-                "portfolio_id": config["portfolio_id"],
-                "confidence": config["confidence"],
-                "method": config["var_method"]
-            }
-        )
+    def fetch_data(self, endpoint, params=None):
+
+    url = f"{self.api_base_url}/{endpoint}"
+
+    for i in range(3):
+        try:
+            response = requests.get(url, params=params, timeout=30)
+            response.raise_for_status()
+            return response.json()
+
+        except Exception as e:
+            if i < 2:
+                time.sleep(5)
+            else:
+                st.error(f"API error: {e}")
+                return None
 
         if not var_data:
             st.warning("No data")
