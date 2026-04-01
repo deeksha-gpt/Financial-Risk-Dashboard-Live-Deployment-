@@ -85,9 +85,9 @@ class RiskDashboard:
 
     url = f"{self.api_base_url}/{endpoint}"
 
-    for i in range(3):  # retry 3 times
+    for i in range(3):
         try:
-            response = requests.get(url, params=params, timeout=30)  # increased timeout
+            response = requests.get(url, params=params, timeout=30)
             response.raise_for_status()
             return response.json()
 
