@@ -81,38 +81,22 @@ class RiskDashboard:
 
     ##########################################
 
-def fetch_data(self, endpoint, params=None):
+    def fetch_data(self, endpoint, params=None):
 
-    url = f"{self.api_base_url}/{endpoint}"
+        url = f"{self.api_base_url}/{endpoint}"
 
-    for i in range(3):
-        try:
-            response = requests.get(url, params=params, timeout=30)
-            response.raise_for_status()
-            return response.json()
+        for i in range(3):
+            try:
+                response = requests.get(url, params=params, timeout=30)
+                response.raise_for_status()
+                return response.json()
 
-        except Exception as e:
-            if i < 2:
-                time.sleep(5)
-            else:
-                st.error(f"API error: {e}")
-                return None
-
-        try:
-
-            url = f"{self.api_base_url}/{endpoint}"
-
-            response = requests.get(url, params=params, timeout=30)
-
-            response.raise_for_status()
-
-            return response.json()
-
-        except Exception as e:
-
-            st.error(f"API error: {e}")
-
-            return None
+            except Exception as e:
+                if i < 2:
+                    time.sleep(5)
+                else:
+                    st.error(f"API error: {e}")
+                    return None
 
     ##########################################
     # HEADER
@@ -198,10 +182,6 @@ def fetch_data(self, endpoint, params=None):
     # KEY METRICS
     ##########################################
 
-    ##########################################
-    # VAR CHART
-    ##########################################
-
     def render_key_metrics(self, config):
 
         st.subheader("🎯 Key Risk Metrics")
@@ -234,6 +214,39 @@ def fetch_data(self, endpoint, params=None):
                 "Expected Shortfall",
                 f"${var_data.get('expected_shortfall',0):,.0f}"
             )
+
+    ##########################################
+    # VAR CHART
+    ##########################################
+
+    def render_var_chart(self, config):
+
+        st.subheader("📈 VaR Trend")
+
+        data = self.fetch_data(
+            "risk/var/history",
+            {"portfolio_id":config["portfolio_id"]}
+        )
+
+        if not data:
+            st.info("No VaR history")
+            return
+
+        df = pd.DataFrame(data)
+
+        df["date"] = pd.to_datetime(df["date"])
+
+        fig = go.Figure()
+
+        fig.add_trace(
+            go.Scatter(
+                x=df["date"],
+                y=df["var"],
+                mode="lines+markers"
+            )
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
 
     ##########################################
     # STRESS TEST
