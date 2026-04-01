@@ -4,7 +4,7 @@ import plotly.express as px
 import pandas as pd
 from datetime import datetime, timedelta
 import requests
-import time
+import time as t
 
 # Import advanced modules
 from visualization import create_3d_risk_surface
@@ -433,7 +433,8 @@ class RiskDashboard:
 
         if st.session_state.auto_refresh:
 
-            time.sleep(30)
+            import time as t
+            t.sleep(30)
 
             st.rerun()
 
